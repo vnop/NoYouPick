@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import { Text, View, TouchableHighlight } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import styles from './styles/styles';
+import FoodType from './screens/FoodType';
 
 class HomeScreen extends Component {
   static navigationOptions = {
     title: 'Can\'t Decide?'
   }
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <TouchableHighlight
@@ -17,6 +19,7 @@ class HomeScreen extends Component {
         </TouchableHighlight>
         <TouchableHighlight
           style={styles.button}
+          onPress={() => navigate('FoodType')}
         >
           <Text style={styles.buttonText}>Random Food Type</Text>
         </TouchableHighlight>
@@ -31,7 +34,8 @@ class HomeScreen extends Component {
 }
 
 const App = StackNavigator({
-  Home: { screen: HomeScreen }
+  Home: { screen: HomeScreen },
+  FoodType: { screen: FoodType }
 });
 
-export default App
+export default App;
