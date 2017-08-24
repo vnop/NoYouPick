@@ -1,30 +1,37 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import styles from './styles/styles';
 
-export default class App extends Component {
+class HomeScreen extends Component {
+  static navigationOptions = {
+    title: 'Can\'t Decide?'
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text>Can't Decide?</Text>
-        <Button
-          title="Flip For It"
-        />
-        <Button
-          title="Random Food Type"
-        />
-        <Button
-          title="Random Restaurant Nearby"
-        />
+        <TouchableHighlight
+          style={styles.button}
+        >
+          <Text style={styles.buttonText}>Flip For It</Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          style={styles.button}
+        >
+          <Text style={styles.buttonText}>Random Food Type</Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          style={styles.button}
+        >
+          <Text style={styles.buttonText}>Random Restaurant Nearby</Text>
+        </TouchableHighlight>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const App = StackNavigator({
+  Home: { screen: HomeScreen }
 });
+
+export default App
