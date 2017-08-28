@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "NoYouPick",
-    "description": "An empty new project",
+    "description": "An app to help you decide what/where to eat",
     "slug": "noyoupick",
     "privacy": "public",
     "sdkVersion": "20.0.0",

@@ -1,8 +1,8 @@
 {
   "name": "noyoupick",
   "version": "0.0.0",
-  "description": "Hello Expo!",
-  "author": null,
+  "description": "An app to help you decide what/where to eat",
+  "author": "Vandeth Nop",
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
