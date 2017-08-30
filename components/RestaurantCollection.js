@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableHighlight } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import PropTypes from 'prop-types';
 import styles from '../styles/styles';
 
 const restaurantData = ['Restaurant 1', 'Restaurant 2', 'Restaurant 3', 'Restaurant 4', 'Restaurant 5', 'Restaurant 6'];
 
 class RestaurantCollection extends Component {
-
+  static PropTypes = {
+    selectRestaurant: PropTypes.func.isRequired
+  }
   randomizeRestaurant() {
     // random algorithm to go here
     this.props.selectRestaurant(restaurantData[0]);

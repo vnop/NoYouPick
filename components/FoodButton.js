@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, TouchableHighlight } from 'react-native';
+import PropTypes from 'prop-types';
 import styles from '../styles/styles';
 
 const FoodButton = (props) => {
@@ -11,6 +12,10 @@ const FoodButton = (props) => {
       <Text style={styles.buttonText}>Random Food Type</Text>
     </TouchableHighlight>
   );
+};
+
+FoodButton.propTypes = {
+  goToScreen: PropTypes.func.isRequired
 };
 
 export default FoodButton;
