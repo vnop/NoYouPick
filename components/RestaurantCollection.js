@@ -8,7 +8,8 @@ const restaurantData = ['Restaurant 1', 'Restaurant 2', 'Restaurant 3', 'Restaur
 
 class RestaurantCollection extends Component {
   static PropTypes = {
-    selectRestaurant: PropTypes.func.isRequired
+    selectRestaurant: PropTypes.func.isRequired,
+    restaurants: PropTypes.array.isRequired
   }
   randomizeRestaurant() {
     // random algorithm to go here

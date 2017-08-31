@@ -5,13 +5,23 @@ import styles from '../styles/styles';
 import RestaurantCollection from '../components/RestaurantCollection';
 import RestaurantResult from '../components/RestaurantResult';
 
+const fourSquareEndPt = `
+https://api.foursquare.com/v2/venues/explore
+`;
+
 class Restaurant extends Component {
   constructor() {
     super();
     this.state = {
-      chosenRestaurant: ''
+      chosenRestaurant: '',
+      restaurantData: []
     }
     this.chooseRestaurant = this.chooseRestaurant.bind(this);
+  }
+
+  // fetch data from fourSquare here, then pass to children
+  componentDidMount() {
+
   }
 
   static navigationOptions = {
@@ -25,11 +35,18 @@ class Restaurant extends Component {
   getScreenContent() {
     if (this.state.chosenRestaurant === '') {
       return (
-        <RestaurantCollection selectRestaurant={this.chooseRestaurant} />
+        <RestaurantCollection
+          selectRestaurant={this.chooseRestaurant}
+          restaurants={this.restaurantData}
+        />
       );
     } else {
       return (
-        <RestaurantResult selectedRestaurant={this.state.chosenRestaurant} selectRestaurant={this.chooseRestaurant} />
+        <RestaurantResult
+          selectRestaurant={this.chooseRestaurant}
+          selectedRestaurant={this.state.chosenRestaurant}
+          restaurants={this.restaurantData}
+        />
       );
     }
   }

@@ -9,7 +9,8 @@ const restaurantData = ['Restaurant 1', 'Restaurant 2', 'Restaurant 3', 'Restaur
 class RestaurantResult extends Component {
   static PropTypes = {
     selectRestaurant: PropTypes.func.isRequired,
-    selectedRestaurant: PropTypes.string.isRequired
+    selectedRestaurant: PropTypes.string.isRequired,
+    restaurants: PropTypes.array.isRequired
   }
   randomizeRestaurant() {
     this.props.selectRestaurant(restaurantData[1]);
