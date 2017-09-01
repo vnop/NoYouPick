@@ -48,19 +48,15 @@ class HomeScreen extends Component {
   render() {
     const { navigate } = this.props.navigation;
     let restaurantSection = null;
-    let text = null;
     if (this.state.errorMessage) {
       restaurantSection = <RestaurantButton
           goToScreen={navigate}
-          loc={this.state.location}
           msg={this.state.errorMessage}
           show={true}
         />;
-      text = this.state.errorMessage;
-    } else if (this.state.location) {
+    } else {
         restaurantSection = <RestaurantButton
           goToScreen={navigate}
-          loc={this.state.location}
           show={false}
         />;
     }

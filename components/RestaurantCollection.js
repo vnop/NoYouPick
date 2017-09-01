@@ -13,6 +13,7 @@ class RestaurantCollection extends Component {
   }
   randomizeRestaurant() {
     // random algorithm to go here
+    console.log('props:', this.props.restaurants);
     this.props.selectRestaurant(restaurantData[0]);
   }
 
