@@ -10,7 +10,12 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: 'royalblue',
     padding: 20,
-    borderRadius: 5
+    borderRadius: 5,
+  },
+  disabledBtn: {
+    backgroundColor: 'grey',
+    padding: 20,
+    borderRadius: 5,
   },
   buttonText: {
     color: 'white',

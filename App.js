@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight } from 'react-native';
+import { Platform, Text, View, TouchableHighlight } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import { Constants, Location, Permissions } from 'expo';
 import styles from './styles/styles';
 import FoodType from './screens/FoodType';
 import Restaurant from './screens/Restaurant';
@@ -10,17 +11,64 @@ import RestaurantButton from './components/RestaurantButton';
 import FlipButton from './components/FlipButton';
 
 class HomeScreen extends Component {
+  constructor() {
+    super();
+    this.state = {
+      location: null,
+      errorMessage: null,
+    };
+  }
+
+    componentWillMount() {
+      if (Platform.OS === 'android' && !Constants.isDevice) {
+        this.setState({
+          errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+        });
+      } else {
+        this._getLocationAsync();
+      }
+    }
+
+    _getLocationAsync = async () => {
+      let { status } = await Permissions.askAsync(Permissions.LOCATION);
+      if (status !== 'granted') {
+        this.setState({
+          errorMessage: 'Permission to access location was denied',
+        });
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      this.setState({ location });
+    };
+
   static navigationOptions = {
     title: 'Can\'t Decide?'
   }
 
   render() {
     const { navigate } = this.props.navigation;
+    let restaurantSection = null;
+    let text = null;
+    if (this.state.errorMessage) {
+      restaurantSection = <RestaurantButton
+          goToScreen={navigate}
+          loc={this.state.location}
+          msg={this.state.errorMessage}
+          show={true}
+        />;
+      text = this.state.errorMessage;
+    } else if (this.state.location) {
+        restaurantSection = <RestaurantButton
+          goToScreen={navigate}
+          loc={this.state.location}
+          show={false}
+        />;
+    }
     return (
       <View style={styles.container}>
         <FlipButton goToScreen={navigate} />
         <FoodButton goToScreen={navigate} />
-        <RestaurantButton goToScreen={navigate} />
+        {restaurantSection}
       </View>
     );
   }

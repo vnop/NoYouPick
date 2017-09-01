@@ -4,6 +4,7 @@ import { StackNavigator } from 'react-navigation';
 import styles from '../styles/styles';
 import RestaurantCollection from '../components/RestaurantCollection';
 import RestaurantResult from '../components/RestaurantResult';
+import { clientId, clientSecret } from '../config/fourSquare';
 
 const fourSquareEndPt = `
 https://api.foursquare.com/v2/venues/explore
