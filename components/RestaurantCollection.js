@@ -11,12 +11,13 @@ class RestaurantCollection extends Component {
   }
   randomizeRestaurant() {
     // random algorithm to go here
-    // this.props.selectRestaurant(this.props.restaurants[0]);
+    this.props.selectRestaurant(1);
   }
 
   render() {
     return (
       <View style={styles.foodContainer}>
+
         <View style={styles.foodButton}>
           <TouchableHighlight
             style={styles.button}
@@ -25,6 +26,7 @@ class RestaurantCollection extends Component {
             <Text style={styles.buttonText}>Pick a Place</Text>
           </TouchableHighlight>
         </View>
+
         <View style={styles.foodGrid}>
           { this.props.restaurants.map((place, index) => {
             let imageUri = `${place.venue.featuredPhotos.items[0].prefix}200${place.venue.featuredPhotos.items[0].suffix}`;
@@ -42,6 +44,7 @@ class RestaurantCollection extends Component {
             );
           }) }
         </View>
+
       </View>
     );
   }

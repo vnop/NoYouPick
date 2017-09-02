@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight } from 'react-native';
+import { Image, Text, View, TouchableHighlight } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import PropTypes from 'prop-types';
 import styles from '../styles/styles';
 
-const restaurantData = ['Restaurant 1', 'Restaurant 2', 'Restaurant 3', 'Restaurant 4', 'Restaurant 5', 'Restaurant 6'];
-
 class RestaurantResult extends Component {
   static PropTypes = {
     selectRestaurant: PropTypes.func.isRequired,
-    selectedRestaurant: PropTypes.string.isRequired,
+    selectedRestaurant: PropTypes.number.isRequired,
     restaurants: PropTypes.array.isRequired
   }
   randomizeRestaurant() {
-    this.props.selectRestaurant(restaurantData[1]);
+    // this.props.selectRestaurant(2);
   }
 
   render() {
+
+    let chosenRestaurant = this.props.restaurants[this.props.selectedRestaurant].venue;
+    let imageUri = `${chosenRestaurant.featuredPhotos.items[0].prefix}200${chosenRestaurant.featuredPhotos.items[0].suffix}`;
+
     return (
       <View style={styles.container}>
         <View>
@@ -26,8 +28,14 @@ class RestaurantResult extends Component {
           >
             <Text style={styles.buttonText}>Pick Again</Text>
           </TouchableHighlight>
-          <Text>Result Image Here</Text>
-          <Text>Chosen Food: { this.props.selectedRestaurant }</Text>
+          <Image
+            source={{uri: imageUri}}
+            style={{width: 100, height: 100}}
+          >
+            <View>
+              <Text style={styles.foodText}>Chosen Restaurant: {chosenRestaurant.name}</Text>
+            </View>
+          </Image>
         </View>
       </View>
     );

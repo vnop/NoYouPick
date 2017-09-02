@@ -13,7 +13,7 @@ class Restaurant extends Component {
   constructor() {
     super();
     this.state = {
-      chosenRestaurant: '',
+      chosenRestaurant: null,
       restaurantData: [],
       location: null
     }
@@ -58,7 +58,7 @@ class Restaurant extends Component {
   }
 
   getScreenContent() {
-    if (this.state.chosenRestaurant === '') {
+    if (this.state.chosenRestaurant === null) {
       return (
         <RestaurantCollection
           selectRestaurant={this.chooseRestaurant}
