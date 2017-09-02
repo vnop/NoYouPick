@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight } from 'react-native';
+import { Image, Text, View, TouchableHighlight } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import PropTypes from 'prop-types';
 import styles from '../styles/styles';
-
-const restaurantData = ['Restaurant 1', 'Restaurant 2', 'Restaurant 3', 'Restaurant 4', 'Restaurant 5', 'Restaurant 6'];
 
 class RestaurantCollection extends Component {
   static PropTypes = {
@@ -13,12 +11,12 @@ class RestaurantCollection extends Component {
   }
   randomizeRestaurant() {
     // random algorithm to go here
-    // this.props.selectRestaurant(restaurantData[0]);
+    // this.props.selectRestaurant(this.props.restaurants[0]);
   }
 
   render() {
     console.log('Restaurant props!!:', this.props.restaurants.length);
-    console.log('Restaurant ITEM props!!:', this.props.restaurants);
+    console.log('Restaurant ITEM props!!:', this.props.restaurants[0]);
     return (
       <View style={styles.foodContainer}>
         <View style={styles.foodButton}>
@@ -29,11 +27,21 @@ class RestaurantCollection extends Component {
             <Text style={styles.buttonText}>Pick a Place</Text>
           </TouchableHighlight>
         </View>
-          <View style={styles.foodGrid}>
-            { restaurantData.map((item, index) => {
-              return <Text style={styles.foodType} key={index}>{item}</Text>;
-            }) }
-          </View>
+        <View style={styles.foodGrid}>
+          { this.props.restaurants.map((place, index) => {
+            let imageUri = `${place.venue.featuredPhotos.items[0].prefix}200${place.venue.featuredPhotos.items[0].suffix}`;
+            return (
+              <View key={place.venue.featuredPhotos.items[0].id}>
+                <Image
+                  source={{uri: imageUri}}
+                  style={{width: 100, height: 150}}
+                >
+                <Text style={styles.foodType}>{place.venue.name}</Text>
+                </Image>
+              </View>
+            );
+          }) }
+        </View>
       </View>
     );
   }
