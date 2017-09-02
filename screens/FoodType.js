@@ -17,11 +17,11 @@ export default class FoodType extends Component {
     title: 'Random Food Type'
   }
 
-  chooseFood = (chosenFood) => (
+  chooseFood = (chosenFood) => {
     this.setState({
       chosenFood
     });
-  )
+  }
 
   getScreenContent() {
     const { chosenFood } = this.state;

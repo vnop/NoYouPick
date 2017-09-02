@@ -7,9 +7,7 @@ import RestaurantCollection from '../components/RestaurantCollection';
 import RestaurantResult from '../components/RestaurantResult';
 import { clientId, clientSecret } from '../config/fourSquare';
 
-const fourSquareEndPt = `
-https://api.foursquare.com/v2/venues/explore
-`;
+const fourSquareEndPt = `https://api.foursquare.com/v2/venues/explore`;
 
 class Restaurant extends Component {
   constructor() {
@@ -23,14 +21,8 @@ class Restaurant extends Component {
   }
 
   componentWillMount() {
-    // get device location, permission already granted if this screen renders
     this._getLocationAsync();
   }
-
-  // fetch data from fourSquare here, then pass to children
-  // componentDidMount() {
-  //   this.getVenues();
-  // }
 
   static navigationOptions = {
     title: 'Random Restaurant'
@@ -43,17 +35,13 @@ class Restaurant extends Component {
     };
 
   getVenues(location) {
-    const query = this.makeQuery(location); // location info
-    console.log('LOCATION: ', query);
+    const query = this.makeQuery(location);
     fetch(`${fourSquareEndPt}?${query}`)
-      .then(fetch.throwErrors)
       .then(resp => resp.json())
       .then(data => {
-        // update the restaurant data
-        console.log('4square data: ', data.response.groups);
-        // this.setState({
-        //   restaurantData: data
-        // })
+        this.setState({
+          restaurantData: data.response.groups[0].items
+        })
       })
       .catch(err => console.log('foursquare fetch error', err));
   }
@@ -71,7 +59,7 @@ class Restaurant extends Component {
       return (
         <RestaurantCollection
           selectRestaurant={this.chooseRestaurant}
-          restaurants={this.restaurantData}
+          restaurants={this.state.restaurantData}
         />
       );
     } else {
@@ -79,7 +67,7 @@ class Restaurant extends Component {
         <RestaurantResult
           selectRestaurant={this.chooseRestaurant}
           selectedRestaurant={this.state.chosenRestaurant}
-          restaurants={this.restaurantData}
+          restaurants={this.state.restaurantData}
         />
       );
     }
