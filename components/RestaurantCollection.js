@@ -15,8 +15,6 @@ class RestaurantCollection extends Component {
   }
 
   render() {
-    console.log('Restaurant props!!:', this.props.restaurants.length);
-    console.log('Restaurant ITEM props!!:', this.props.restaurants[0]);
     return (
       <View style={styles.foodContainer}>
         <View style={styles.foodButton}>
@@ -34,9 +32,11 @@ class RestaurantCollection extends Component {
               <View key={place.venue.featuredPhotos.items[0].id}>
                 <Image
                   source={{uri: imageUri}}
-                  style={{width: 100, height: 150}}
+                  style={{width: 100, height: 100}}
                 >
-                <Text style={styles.foodType}>{place.venue.name}</Text>
+                <View>
+                  <Text style={styles.foodText}>{place.venue.name}</Text>
+                </View>
                 </Image>
               </View>
             );

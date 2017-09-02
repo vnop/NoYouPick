@@ -41,6 +41,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  foodText: {
+    color: 'darkgrey',
+    fontSize: 12,
+    fontWeight: 'bold'
   }
 });
 

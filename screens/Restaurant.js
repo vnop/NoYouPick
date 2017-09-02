@@ -35,6 +35,9 @@ class Restaurant extends Component {
     };
 
   getVenues(location) {
+    // should look at other api endpoints or change section in query
+      // perform another search if there are no results
+      // if not results at all, then display a message of no results
     const query = this.makeQuery(location);
     fetch(`${fourSquareEndPt}?${query}`)
       .then(resp => resp.json())
