@@ -66,13 +66,18 @@ class RestaurantResult extends Component {
           <TouchableHighlight
             onPress={() => this._handleOpenWithLinking(chosenRestaurant.contact.phone)}
           >
-            <Text style={{color: 'blue'}}>{chosenRestaurant.contact.formattedPhone}</Text>
+            <Text style={{color: 'blue', marginBottom: 5}}>{chosenRestaurant.contact.formattedPhone}</Text>
           </TouchableHighlight>
           <Text style={{fontWeight: 'bold'}}>Website</Text>
           <TouchableHighlight
             onPress={() => this._handleOpenWithWebBrowser(chosenRestaurant.url)}
           >
-            <Text style={{color: 'blue'}}>{chosenRestaurant.url}</Text>
+            <Text style={{color: 'blue', marginBottom: 5}}>{chosenRestaurant.url}</Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            onPress={() => this._handleOpenWithWebBrowser(chosenRestaurant.menu.mobileUrl)}
+          >
+            <Text style={{color: 'blue', fontWeight: 'bold'}}>Menu</Text>
           </TouchableHighlight>
         </View>
       </View>
