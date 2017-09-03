@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Image, Text, View, TouchableHighlight } from 'react-native';
+import { StyleSheet, Image, Text, View, TouchableHighlight } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import { WebBrowser } from 'expo';
 import PropTypes from 'prop-types';
 import styles from '../styles/styles';
 
@@ -14,32 +15,94 @@ class RestaurantResult extends Component {
     // this.props.selectRestaurant(2);
   }
 
+  _handleOpenWithWebBrowser(url) {
+    WebBrowser.openBrowserAsync(url);
+  }
+
   render() {
 
     let chosenRestaurant = this.props.restaurants[this.props.selectedRestaurant].venue;
     let imageUri = `${chosenRestaurant.featuredPhotos.items[0].prefix}200${chosenRestaurant.featuredPhotos.items[0].suffix}`;
 
     return (
-      <View style={styles.container}>
-        <View>
+      <View style={tempStyles.container}>
+        <View style={tempStyles.innerContainer}>
           <TouchableHighlight
-            style={styles.button}
+            style={tempStyles.button}
             onPress={() => this.randomizeRestaurant()}
           >
             <Text style={styles.buttonText}>Pick Again</Text>
           </TouchableHighlight>
           <Image
             source={{uri: imageUri}}
-            style={{width: 100, height: 100}}
+            // use device width
+            style={{width: 500, height: 150}}
+          />
+        </View>
+
+        <View style={tempStyles.innerContainer3}>
+          <Text style={tempStyles.foodText}>{chosenRestaurant.name}</Text>
+        </View>
+        <View style={tempStyles.innerContainer2}>
+          <Text style={{marginBottom: 5}}>{chosenRestaurant.hours.status}</Text>
+          <Text style={{fontWeight: 'bold'}}>Address</Text>
+          <Text>{chosenRestaurant.location.formattedAddress[0]}</Text>
+          <Text style={{marginBottom: 5}}>{chosenRestaurant.location.formattedAddress[1]}</Text>
+          <Text style={{fontWeight: 'bold'}}>Phone</Text>
+          <Text style={{marginBottom: 5}}>{chosenRestaurant.contact.formattedPhone}</Text>
+          <Text style={{fontWeight: 'bold'}}>Website</Text>
+          <TouchableHighlight
+            onPress={() => this._handleOpenWithWebBrowser(chosenRestaurant.url)}
           >
-            <View>
-              <Text style={styles.foodText}>Chosen Restaurant: {chosenRestaurant.name}</Text>
-            </View>
-          </Image>
+            <Text style={{color: 'blue'}}>{chosenRestaurant.url}</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
   }
 }
+
+const tempStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // marginTop: 100,
+    // marginBottom: 100,
+  },
+  innerContainer: {
+    // flex: 1,
+    backgroundColor: '#fefefe',
+    // overflow: 'hidden',
+    // alignItems: 'center',
+    // justifyContent: 'space-around',
+  },
+  innerContainer2: {
+    flex: 1,
+    paddingLeft: 5,
+    // backgroundColor: '#',
+    // alignItems: 'center',
+    // justifyContent: 'space-around',
+  },
+  innerContainer3: {
+    // flex: 1,
+    backgroundColor: '#fefefe',
+    paddingLeft: 5,
+    // alignItems: 'center',
+    // justifyContent: 'space-around',
+  },
+  button: {
+    backgroundColor: 'royalblue',
+    padding: 20,
+    // borderWidth: 1,
+    borderRadius: 5,
+    margin: 0,
+    marginBottom: 50,
+    alignItems: 'center',
+  },
+  foodText: {
+    color: 'black',
+    fontSize: 15,
+    fontWeight: 'bold'
+  }
+});
 
 export default RestaurantResult;

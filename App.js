@@ -61,7 +61,9 @@ class HomeScreen extends Component {
         />;
     }
     return (
-      <View style={styles.container}>
+      <View
+      // style={styles.container}
+      >
         <FlipButton goToScreen={navigate} />
         <FoodButton goToScreen={navigate} />
         {restaurantSection}

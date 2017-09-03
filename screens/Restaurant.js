@@ -78,7 +78,9 @@ class Restaurant extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View
+      style={styles.container}
+      >
         { this.getScreenContent() }
       </View>
     );
