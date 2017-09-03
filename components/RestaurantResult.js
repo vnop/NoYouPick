@@ -12,7 +12,9 @@ class RestaurantResult extends Component {
     restaurants: PropTypes.array.isRequired
   }
   randomizeRestaurant() {
-    // this.props.selectRestaurant(2);
+    let max = this.props.restaurants.length;
+    let randomSelect = Math.floor(Math.random() * max);
+    this.props.selectRestaurant(randomSelect);
   }
 
   _handleOpenWithWebBrowser(url) {
