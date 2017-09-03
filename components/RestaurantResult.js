@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Image, Text, View, TouchableHighlight } from 'react-native';
+import { Linking, StyleSheet, Image, Text, View, TouchableHighlight } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { WebBrowser } from 'expo';
 import PropTypes from 'prop-types';
@@ -17,6 +17,20 @@ class RestaurantResult extends Component {
 
   _handleOpenWithWebBrowser(url) {
     WebBrowser.openBrowserAsync(url);
+  }
+
+  _handleOpenWithLinking(phone) {
+    let phoneUrl = `tel:+1${phone}`;
+    Linking.canOpenURL(phoneUrl).then(supported => {
+      if(!supported) {
+        console.log('Can\'t handle phone url: ' + phoneUrl);
+      } else {
+        Linking.openURL(phoneUrl)
+        .catch(err => {
+          console.warn('openURL error', err);
+        });
+      }
+    }).catch(err => console.warn('An unexpected error happened', err));
   }
 
   render() {
@@ -49,7 +63,11 @@ class RestaurantResult extends Component {
           <Text>{chosenRestaurant.location.formattedAddress[0]}</Text>
           <Text style={{marginBottom: 5}}>{chosenRestaurant.location.formattedAddress[1]}</Text>
           <Text style={{fontWeight: 'bold'}}>Phone</Text>
-          <Text style={{marginBottom: 5}}>{chosenRestaurant.contact.formattedPhone}</Text>
+          <TouchableHighlight
+            onPress={() => this._handleOpenWithLinking(chosenRestaurant.contact.phone)}
+          >
+            <Text style={{color: 'blue'}}>{chosenRestaurant.contact.formattedPhone}</Text>
+          </TouchableHighlight>
           <Text style={{fontWeight: 'bold'}}>Website</Text>
           <TouchableHighlight
             onPress={() => this._handleOpenWithWebBrowser(chosenRestaurant.url)}
