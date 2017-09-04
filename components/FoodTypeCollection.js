@@ -3,12 +3,19 @@ import { Text, View, TouchableHighlight } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import PropTypes from 'prop-types';
 import styles from '../styles/styles';
+import fb from '../fb/firebase';
 
 const foodTypesData = ['Chinese Food', 'Italian Food', 'American Food', 'Indian Food', 'Thai Food', 'Mexican Food'];
 
 class FoodTypeCollection extends Component {
   static PropTypes = {
     selectFood: PropTypes.func.isRequired,
+  }
+
+  componentWillMount() {
+    fb.storage().ref().child('american.png').getDownloadURL()
+      .then(url => console.log('FIREBASE: ', url))
+      .catch(err => console.warn('fb fail', err));
   }
 
   randomizeFood() {
