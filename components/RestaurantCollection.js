@@ -20,8 +20,9 @@ class RestaurantCollection extends Component {
     restaurants: PropTypes.array.isRequired
   }
   randomizeRestaurant() {
-    // random algorithm to go here
-    this.props.selectRestaurant(1);
+    let max = this.props.restaurants.length;
+    let randomSelect = Math.floor(Math.random() * max);
+    this.props.selectRestaurant(randomSelect);
   }
 
   render() {
