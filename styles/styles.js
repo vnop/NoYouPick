@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'royalblue',
     padding: 20,
     borderRadius: 5,
+    alignItems: 'center',
   },
   disabledBtn: {
     backgroundColor: 'grey',
