@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Image, Text, View, TouchableHighlight } from 'react-native';
+import { Dimensions, StyleSheet, Image, Text, View, TouchableHighlight } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import PropTypes from 'prop-types';
 import styles from '../styles/styles';
+
+const { width } = Dimensions.get('window');
 
 class RestaurantCollection extends Component {
   static PropTypes = {
@@ -15,10 +17,11 @@ class RestaurantCollection extends Component {
   }
 
   render() {
+    let imageWidth = width / 2;
     return (
-      <View style={styles.foodContainer}>
+      <View style={tempStyles.container}>
 
-        <View style={styles.foodButton}>
+        <View style={tempStyles.foodButton}>
           <TouchableHighlight
             style={styles.button}
             onPress={() => this.randomizeRestaurant()}
@@ -27,20 +30,27 @@ class RestaurantCollection extends Component {
           </TouchableHighlight>
         </View>
 
-        <View style={styles.foodGrid}>
+        <View style={tempStyles.foodGrid}>
           { this.props.restaurants.map((place, index) => {
             let imageUri = `${place.venue.featuredPhotos.items[0].prefix}200${place.venue.featuredPhotos.items[0].suffix}`;
             return (
-              <View key={place.venue.featuredPhotos.items[0].id}>
-                <Image
-                  source={{uri: imageUri}}
-                  style={{width: 100, height: 100}}
+              <Image
+                source={{uri: imageUri}}
+                style={{ width: imageWidth, height: 150 }}
+                key={place.venue.featuredPhotos.items[0].id}
+              >
+              <View style={{ backgroundColor: 'rgba(0,0,0,0.4)', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text
+                  style={{
+                    color: 'white',
+                    fontSize: 15,
+                    fontWeight: 'bold'
+                  }}
                 >
-                <View>
-                  <Text style={styles.foodText}>{place.venue.name}</Text>
-                </View>
-                </Image>
+                  {place.venue.name}
+                </Text>
               </View>
+              </Image>
             );
           }) }
         </View>
@@ -51,3 +61,19 @@ class RestaurantCollection extends Component {
 }
 
 export default RestaurantCollection;
+
+const tempStyles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  foodGrid: {
+    flex: 1,
+    backgroundColor: 'skyblue',  // to be removed
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    // justifyContent: 'center'
+  },
+  foodButton: {
+    marginBottom: 1,
+  }
+});

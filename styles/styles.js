@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   foodText: {
-    color: 'darkgrey',
-    fontSize: 12,
+    color: 'white',
+    fontSize: 15,
     fontWeight: 'bold'
   }
 });
