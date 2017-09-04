@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, Text, View, TouchableHighlight } from 'react-native';
+import { StyleSheet, Platform, Text, View, TouchableHighlight } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { Constants, Location, Permissions } from 'expo';
 import styles from './styles/styles';
@@ -61,12 +61,16 @@ class HomeScreen extends Component {
         />;
     }
     return (
-      <View
-      // style={styles.container}
-      >
-        <FlipButton goToScreen={navigate} />
-        <FoodButton goToScreen={navigate} />
-        {restaurantSection}
+      <View style={tempStyles.container}>
+        <View style={tempStyles.button1}>
+          <FlipButton goToScreen={navigate} />
+        </View>
+        <View style={tempStyles.button2}>
+          <FoodButton goToScreen={navigate} />
+        </View>
+        <View style={tempStyles.button3}>
+          {restaurantSection}
+        </View>
       </View>
     );
   }
@@ -77,6 +81,25 @@ const App = StackNavigator({
   FoodType: { screen: FoodType },
   Restaurants: { screen: Restaurant },
   Flip: { screen: FlipIt }
+});
+
+const tempStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fefefe',
+    justifyContent: 'center',
+  },
+  button1: {
+    marginLeft: 25,
+    marginRight: 25,
+  },
+  button2: {
+    margin: 25,
+  },
+  button3: {
+    marginLeft: 25,
+    marginRight: 25,
+  }
 });
 
 export default App;
