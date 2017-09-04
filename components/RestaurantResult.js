@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
-import { Linking, StyleSheet, Image, Text, View, TouchableHighlight } from 'react-native';
+import {
+  Dimensions,
+  Linking,
+  StyleSheet,
+  Image,
+  Text,
+  View,
+  TouchableHighlight } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { WebBrowser } from 'expo';
 import PropTypes from 'prop-types';
 import styles from '../styles/styles';
+
+const { width } = Dimensions.get('window');
 
 class RestaurantResult extends Component {
   static PropTypes = {
@@ -38,29 +47,26 @@ class RestaurantResult extends Component {
   render() {
 
     let chosenRestaurant = this.props.restaurants[this.props.selectedRestaurant].venue;
-    let imageUri = `${chosenRestaurant.featuredPhotos.items[0].prefix}200${chosenRestaurant.featuredPhotos.items[0].suffix}`;
+    let imageUri = `${chosenRestaurant.featuredPhotos.items[0].prefix}${width}${chosenRestaurant.featuredPhotos.items[0].suffix}`;
 
     return (
       <View style={tempStyles.container}>
         <View style={tempStyles.innerContainer}>
-          <TouchableHighlight
-            style={tempStyles.button}
-            onPress={() => this.randomizeRestaurant()}
-          >
-            <Text style={styles.buttonText}>Pick Again</Text>
-          </TouchableHighlight>
+          <View style={tempStyles.innerContainer3}>
+            <Text style={tempStyles.foodText}>
+              {chosenRestaurant.name}
+            </Text>
+            <Text style={{marginBottom: 5}}>
+              {chosenRestaurant.hours.status}
+            </Text>
+          </View>
           <Image
             source={{uri: imageUri}}
-            // use device width
-            style={{width: 500, height: 150}}
+            style={{width, height: 200, marginBottom: 5}}
           />
         </View>
 
-        <View style={tempStyles.innerContainer3}>
-          <Text style={tempStyles.foodText}>{chosenRestaurant.name}</Text>
-        </View>
         <View style={tempStyles.innerContainer2}>
-          <Text style={{marginBottom: 5}}>{chosenRestaurant.hours.status}</Text>
           <Text style={{fontWeight: 'bold'}}>Address</Text>
           <Text>{chosenRestaurant.location.formattedAddress[0]}</Text>
           <Text style={{marginBottom: 5}}>{chosenRestaurant.location.formattedAddress[1]}</Text>
@@ -74,7 +80,7 @@ class RestaurantResult extends Component {
           <TouchableHighlight
             onPress={() => this._handleOpenWithWebBrowser(chosenRestaurant.url)}
           >
-            <Text style={{color: 'blue', marginBottom: 5}}>{chosenRestaurant.url}</Text>
+            <Text style={{color: 'blue', marginBottom: 10}}>{chosenRestaurant.url}</Text>
           </TouchableHighlight>
           <TouchableHighlight
             onPress={() => this._handleOpenWithWebBrowser(chosenRestaurant.menu.mobileUrl)}
@@ -82,6 +88,12 @@ class RestaurantResult extends Component {
             <Text style={{color: 'blue', fontWeight: 'bold'}}>Menu</Text>
           </TouchableHighlight>
         </View>
+        <TouchableHighlight
+          style={tempStyles.button}
+          onPress={() => this.randomizeRestaurant()}
+        >
+          <Text style={styles.buttonText}>Pick Again</Text>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -90,42 +102,29 @@ class RestaurantResult extends Component {
 const tempStyles = StyleSheet.create({
   container: {
     flex: 1,
-    // marginTop: 100,
-    // marginBottom: 100,
   },
   innerContainer: {
-    // flex: 1,
     backgroundColor: '#fefefe',
-    // overflow: 'hidden',
-    // alignItems: 'center',
-    // justifyContent: 'space-around',
   },
   innerContainer2: {
     flex: 1,
     paddingLeft: 5,
-    // backgroundColor: '#',
-    // alignItems: 'center',
-    // justifyContent: 'space-around',
   },
   innerContainer3: {
-    // flex: 1,
     backgroundColor: '#fefefe',
     paddingLeft: 5,
-    // alignItems: 'center',
-    // justifyContent: 'space-around',
   },
   button: {
     backgroundColor: 'royalblue',
     padding: 20,
-    // borderWidth: 1,
     borderRadius: 5,
     margin: 0,
-    marginBottom: 50,
+    marginBottom: 1,
     alignItems: 'center',
   },
   foodText: {
     color: 'black',
-    fontSize: 15,
+    fontSize: 20,
     fontWeight: 'bold'
   }
 });
