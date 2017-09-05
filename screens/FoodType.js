@@ -4,13 +4,34 @@ import { StackNavigator } from 'react-navigation';
 import styles from '../styles/styles';
 import FoodTypeCollection from '../components/FoodTypeCollection';
 import FoodTypeResult from '../components/FoodTypeResult';
+import fb from '../fb/firebase';
+import { foodTypes, config } from '../config/config';
 
 export default class FoodType extends Component {
   constructor() {
     super();
     this.state = {
-      chosenFood: ''
+      chosenFood: null,
+      foodCollection: []
     };
+  }
+
+  componentWillMount() {
+    let result = [];
+    let imageUri = `gs://${config.storageBucket}/`;
+    foodTypes.forEach(item => {
+      fb.storage().refFromURL(imageUri).child(item.suffix).getDownloadURL()
+        .then(url => {
+          let info = { id: item.id, type: item.type, url };
+          result = [...result, info];
+        })
+        .then(data => {
+          this.setState({
+            foodCollection: result
+          });
+        })
+        .catch(err => console.warn('fb fail', err));
+    });
   }
 
   static navigationOptions = {
@@ -24,14 +45,21 @@ export default class FoodType extends Component {
   }
 
   getScreenContent() {
-    const { chosenFood } = this.state;
-    if (chosenFood === '') {
+    const { chosenFood, foodCollection } = this.state;
+    if (chosenFood === null) {
       return (
-        <FoodTypeCollection selectFood={this.chooseFood}/>
+        <FoodTypeCollection
+          selectFood={this.chooseFood}
+          foodData={foodCollection}
+        />
       );
     }
     return (
-      <FoodTypeResult selectedFood={chosenFood} selectFood={this.chooseFood}/>
+      <FoodTypeResult
+        selectedFood={chosenFood}
+        selectFood={this.chooseFood}
+        foodData={foodCollection}
+      />
     );
   }
 
