@@ -1,32 +1,61 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight } from 'react-native';
+import {
+  ScrollView,
+  Dimensions,
+  StyleSheet,
+  Image,
+  Text,
+  View,
+  TouchableHighlight
+} from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import PropTypes from 'prop-types';
 import styles from '../styles/styles';
 import fb from '../fb/firebase';
+import { foodTypes, config } from '../config/config';
 
-const foodTypesData = ['Chinese Food', 'Italian Food', 'American Food', 'Indian Food', 'Thai Food', 'Mexican Food'];
+const { width } = Dimensions.get('window');
 
 class FoodTypeCollection extends Component {
+  constructor() {
+    super();
+    this.state = {
+      data: []
+    }
+  }
   static PropTypes = {
     selectFood: PropTypes.func.isRequired,
   }
 
   componentWillMount() {
-    fb.storage().ref().child('american.png').getDownloadURL()
-      .then(url => console.log('FIREBASE: ', url))
-      .catch(err => console.warn('fb fail', err));
+    let result = [];
+    let imageUri = `gs://${config.storageBucket}/`;
+    foodTypes.forEach(item => {
+      fb.storage().refFromURL(imageUri).child(item.suffix).getDownloadURL()
+        .then(url => {
+          let info = { id: item.id, type: item.type, url };
+          result = [...result, info];
+        })
+        .then(data => {
+          this.setState({
+            data: result
+          });
+        })
+        .catch(err => console.warn('fb fail', err));
+    });
   }
 
   randomizeFood() {
     // random algorithm to go here
-    this.props.selectFood(foodTypesData[0]);
+    this.props.selectFood(foodTypes[0]);
   }
 
   render() {
+    let imageWidth = width / 2;
     return (
-      <View style={styles.foodContainer}>
-        <View style={styles.foodButton}>
+      <View style={tempStyles.container}>
+
+        <View style={tempStyles.foodButton}>
           <TouchableHighlight
             style={styles.button}
             onPress={() => this.randomizeFood()}
@@ -34,14 +63,48 @@ class FoodTypeCollection extends Component {
             <Text style={styles.buttonText}>What Am I Craving?</Text>
           </TouchableHighlight>
         </View>
-          <View style={styles.foodGrid}>
-            { foodTypesData.map((item, index) => {
-              return <Text style={styles.foodType} key={index}>{item}</Text>;
+        <ScrollView>
+          <View style={tempStyles.foodGrid}>
+            { this.state.data.map((item, index) => {
+              return (
+                <Image
+                  source={{uri: item.url}}
+                  style={{ width: imageWidth, height: 180 }}
+                  key={item.id}
+                >
+                  <View style={{ backgroundColor: 'rgba(0,0,0,0.4)', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text
+                      style={{
+                        color: 'white',
+                        fontSize: 15,
+                        fontWeight: 'bold'
+                      }}
+                    >
+                      {item.type}
+                    </Text>
+                  </View>
+                </Image>
+              );
             }) }
           </View>
+        </ScrollView>
       </View>
     );
   }
 }
+
+const tempStyles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  foodGrid: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  foodButton: {
+    marginBottom: 1,
+  }
+});
 
 export default FoodTypeCollection;
