@@ -56,8 +56,8 @@ export default class FoodType extends Component {
     }
     return (
       <FoodTypeResult
-        selectedFood={chosenFood}
         selectFood={this.chooseFood}
+        selectedFood={chosenFood}
         foodData={foodCollection}
       />
     );
