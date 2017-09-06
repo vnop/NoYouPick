@@ -4,3 +4,4 @@ npm-debug.*
 .DS_Store
 config/fourSquare.js
 config/config.js
+assets/images

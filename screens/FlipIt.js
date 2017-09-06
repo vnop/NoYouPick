@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Text, View, TouchableHighlight } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import styles from '../styles/styles';
-import FlipCoin from '../components/FlipCoin';
+// import FlipCoin from '../components/FlipCoin';
+import AnimateFlip from '../components/AnimateFlip';
 
 class FlipIt extends Component {
   static navigationOptions = {
@@ -11,7 +12,7 @@ class FlipIt extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <FlipCoin />
+        <AnimateFlip />
       </View>
     );
   }
