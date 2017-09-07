@@ -15,7 +15,7 @@ const FoodButton = (props) => {
 };
 
 FoodButton.propTypes = {
-  goToScreen: PropTypes.func.isRequired
+  goToScreen: PropTypes.func.isRequired,
 };
 
 export default FoodButton;

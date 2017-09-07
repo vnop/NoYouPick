@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { View } from 'react-native';
 import { Location } from 'expo';
 import styles from '../styles/styles';
 import RestaurantCollection from '../components/RestaurantCollection';
@@ -9,7 +8,7 @@ import { clientId, clientSecret } from '../config/fourSquare';
 
 const fourSquareEndPt = `https://api.foursquare.com/v2/venues/explore`;
 
-class Restaurant extends Component {
+export default class Restaurant extends Component {
   constructor() {
     super();
     this.state = {
@@ -35,9 +34,6 @@ class Restaurant extends Component {
     };
 
   getVenues(location) {
-    // should look at other api endpoints or change section in query
-      // perform another search if there are no results
-      // if not results at all, then display a message of no results
     const query = this.makeQuery(location);
     fetch(`${fourSquareEndPt}?${query}`)
       .then(resp => resp.json())
@@ -86,5 +82,3 @@ class Restaurant extends Component {
     );
   }
 }
-
-export default Restaurant;

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { View } from 'react-native';
 import styles from '../styles/styles';
 import AnimateFlip from '../components/AnimateFlip';
 
-class FlipIt extends Component {
+export default class FlipIt extends Component {
   static navigationOptions = {
     title: 'Flip For It'
   }
@@ -16,5 +15,3 @@ class FlipIt extends Component {
     );
   }
 }
-
-export default FlipIt;

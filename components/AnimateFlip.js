@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-class AnimateFlip extends Component {
+export default class AnimateFlip extends Component {
   componentWillMount() {
     this.animatedValue = new Animated.Value(0);
     this.value = 0;
@@ -28,7 +28,6 @@ class AnimateFlip extends Component {
   flipCoin() {
     const random = Math.floor(Math.random() * 2);
     let endValue;
-    // DAENERYS
     if (random < 1) {
       if (this.value <= 181) {
         endValue = 2160;
@@ -36,7 +35,6 @@ class AnimateFlip extends Component {
         endValue = 0;
       }
     } else {
-    // DRAGON
       if (this.value <= 181) {
         endValue = 1980;
       } else {
@@ -63,7 +61,7 @@ class AnimateFlip extends Component {
     };
     return (
       <View style={styles.container}>
-        <View>
+        <View style={{padding: 5}}>
           <Animated.View style={[styles.flipCoin, frontAnimatedStyle]}>
             <Image
               source={require('../assets/images/dragonHead.png')}
@@ -78,7 +76,7 @@ class AnimateFlip extends Component {
           </Animated.View>
         </View>
         <TouchableOpacity style={styles.button} onPress={() => this.flipCoin()}>
-          <Text>Flip that coin!</Text>
+          <Text style={styles.buttonText}>Flip that coin!</Text>
         </TouchableOpacity>
       </View>
     );
@@ -108,6 +106,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
   },
+  buttonText: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
 });
-
-export default AnimateFlip;

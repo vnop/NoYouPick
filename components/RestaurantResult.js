@@ -7,14 +7,13 @@ import {
   Text,
   View,
   TouchableHighlight } from 'react-native';
-import { StackNavigator } from 'react-navigation';
 import { WebBrowser } from 'expo';
 import PropTypes from 'prop-types';
 import styles from '../styles/styles';
 
 const { width } = Dimensions.get('window');
 
-class RestaurantResult extends Component {
+export default class RestaurantResult extends Component {
   static PropTypes = {
     selectRestaurant: PropTypes.func.isRequired,
     selectedRestaurant: PropTypes.number.isRequired,
@@ -38,7 +37,7 @@ class RestaurantResult extends Component {
       } else {
         Linking.openURL(phoneUrl)
         .catch(err => {
-          console.warn('openURL error', err);
+          // console.warn('openURL error', err);
         });
       }
     }).catch(err => console.warn('An unexpected error happened', err));
@@ -128,5 +127,3 @@ const tempStyles = StyleSheet.create({
     fontWeight: 'bold'
   }
 });
-
-export default RestaurantResult;

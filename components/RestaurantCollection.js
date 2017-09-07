@@ -8,13 +8,12 @@ import {
   View,
   TouchableHighlight
 } from 'react-native';
-import { StackNavigator } from 'react-navigation';
 import PropTypes from 'prop-types';
 import styles from '../styles/styles';
 
 const { width } = Dimensions.get('window');
 
-class RestaurantCollection extends Component {
+export default class RestaurantCollection extends Component {
   static PropTypes = {
     selectRestaurant: PropTypes.func.isRequired,
     restaurants: PropTypes.array.isRequired
@@ -84,5 +83,3 @@ const tempStyles = StyleSheet.create({
     marginBottom: 1,
   }
 });
-
-export default RestaurantCollection;

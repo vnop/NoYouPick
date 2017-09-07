@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { View } from 'react-native';
 import styles from '../styles/styles';
 import FoodTypeCollection from '../components/FoodTypeCollection';
 import FoodTypeResult from '../components/FoodTypeResult';

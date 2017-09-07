@@ -7,13 +7,12 @@ import {
   View,
   TouchableHighlight
 } from 'react-native';
-import { StackNavigator } from 'react-navigation';
 import PropTypes from 'prop-types';
 import styles from '../styles/styles';
 
 const { width } = Dimensions.get('window');
 
-class FoodTypeResult extends Component {
+export default class FoodTypeResult extends Component {
   static PropTypes = {
     selectFood: PropTypes.func.isRequired,
     selectedFood: PropTypes.number.isRequired,
@@ -85,5 +84,3 @@ const tempStyles = StyleSheet.create({
     fontWeight: 'bold'
   }
 });
-
-export default FoodTypeResult;

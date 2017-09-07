@@ -19,27 +19,26 @@ class HomeScreen extends Component {
     };
   }
 
-    componentWillMount() {
-      if (Platform.OS === 'android' && !Constants.isDevice) {
-        this.setState({
-          errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
-        });
-      } else {
-        this._getLocationAsync();
-      }
+  componentWillMount() {
+    if (Platform.OS === 'android' && !Constants.isDevice) {
+      this.setState({
+        errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+      });
+    } else {
+      this._getLocationAsync();
     }
+  }
 
-    _getLocationAsync = async () => {
-      let { status } = await Permissions.askAsync(Permissions.LOCATION);
-      if (status !== 'granted') {
-        this.setState({
-          errorMessage: 'Permission to access location was denied',
-        });
-      }
-
-      let location = await Location.getCurrentPositionAsync({});
-      this.setState({ location });
-    };
+  _getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      this.setState({
+        errorMessage: 'Permission to access location was denied',
+      });
+    }
+    let location = await Location.getCurrentPositionAsync({});
+    this.setState({ location });
+  };
 
   static navigationOptions = {
     title: 'Can\'t Decide?'
@@ -47,11 +46,12 @@ class HomeScreen extends Component {
 
   render() {
     const { navigate } = this.props.navigation;
+    const { errorMessage } = this.state;
     let restaurantSection = null;
-    if (this.state.errorMessage) {
+    if (errorMessage) {
       restaurantSection = <RestaurantButton
           goToScreen={navigate}
-          msg={this.state.errorMessage}
+          msg={errorMessage}
           show={true}
         />;
     } else {
