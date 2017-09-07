@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Animated,
   Text,
@@ -8,38 +8,46 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-class AnimateFlip extends React.Component {
-
+class AnimateFlip extends Component {
   componentWillMount() {
     this.animatedValue = new Animated.Value(0);
     this.value = 0;
     this.animatedValue.addListener(({ value }) => {
       this.value = value;
-    })
+    });
     this.frontInterpolate = this.animatedValue.interpolate({
       inputRange: [0, 180],
       outputRange: ['0deg', '180deg'],
-    })
+    });
     this.backInterpolate = this.animatedValue.interpolate({
       inputRange: [0, 180],
-      outputRange: ['180deg', '360deg']
-    })
+      outputRange: ['180deg', '360deg'],
+    });
   }
 
   flipCoin() {
-    if (this.value >= 90) {
-      Animated.spring(this.animatedValue, {
-        toValue: -2160,
-        friction: 8,
-        tension: 10,
-      }).start();
+    const random = Math.floor(Math.random() * 2);
+    let endValue;
+    // DAENERYS
+    if (random < 1) {
+      if (this.value <= 181) {
+        endValue = 2160;
+      } else {
+        endValue = 0;
+      }
     } else {
-      Animated.spring(this.animatedValue, {
-        toValue: 1980,
-        friction: 8,
-        tension: 10,
-      }).start();
+    // DRAGON
+      if (this.value <= 181) {
+        endValue = 1980;
+      } else {
+        endValue = 180;
+      }
     }
+    Animated.spring(this.animatedValue, {
+      toValue: endValue,
+      friction: 8,
+      tension: 10,
+    }).start();
   }
 
   render() {
@@ -69,7 +77,7 @@ class AnimateFlip extends React.Component {
             />
           </Animated.View>
         </View>
-        <TouchableOpacity onPress={() => this.flipCoin()}>
+        <TouchableOpacity style={styles.button} onPress={() => this.flipCoin()}>
           <Text>Flip that coin!</Text>
         </TouchableOpacity>
       </View>
@@ -94,11 +102,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
   },
-  flipText: {
-    width: 90,
-    fontSize: 20,
-    color: 'white',
-    fontWeight: 'bold',
+  button: {
+    backgroundColor: 'royalblue',
+    padding: 20,
+    borderRadius: 5,
+    alignItems: 'center',
   },
 });
 
