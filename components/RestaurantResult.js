@@ -19,17 +19,18 @@ export default class RestaurantResult extends Component {
     selectedRestaurant: PropTypes.number.isRequired,
     restaurants: PropTypes.array.isRequired
   }
-  randomizeRestaurant() {
+
+  _randomizeRestaurant = () => {
     let max = this.props.restaurants.length;
     let randomSelect = Math.floor(Math.random() * max);
     this.props.selectRestaurant(randomSelect);
   }
 
-  _handleOpenWithWebBrowser(url) {
+  _handleOpenWithWebBrowser = (url) => {
     WebBrowser.openBrowserAsync(url);
   }
 
-  _handleOpenWithLinking(phone) {
+  _handleOpenWithLinking = (phone) => {
     let phoneUrl = `tel:+1${phone}`;
     Linking.canOpenURL(phoneUrl).then(supported => {
       if(!supported) {
@@ -44,7 +45,6 @@ export default class RestaurantResult extends Component {
   }
 
   render() {
-
     let chosenRestaurant = this.props.restaurants[this.props.selectedRestaurant].venue;
     let imageUri = `${chosenRestaurant.featuredPhotos.items[0].prefix}${width}${chosenRestaurant.featuredPhotos.items[0].suffix}`;
 
@@ -89,7 +89,7 @@ export default class RestaurantResult extends Component {
         </View>
         <TouchableHighlight
           style={tempStyles.button}
-          onPress={() => this.randomizeRestaurant()}
+          onPress={() => this._randomizeRestaurant()}
         >
           <Text style={styles.buttonText}>Pick Again</Text>
         </TouchableHighlight>

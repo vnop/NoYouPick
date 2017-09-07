@@ -25,7 +25,7 @@ export default class AnimateFlip extends Component {
     });
   }
 
-  flipCoin() {
+  _flipCoin = () => {
     const random = Math.floor(Math.random() * 2);
     let endValue;
     if (random < 1) {
@@ -75,7 +75,7 @@ export default class AnimateFlip extends Component {
             />
           </Animated.View>
         </View>
-        <TouchableOpacity style={styles.button} onPress={() => this.flipCoin()}>
+        <TouchableOpacity style={styles.button} onPress={() => this._flipCoin()}>
           <Text style={styles.buttonText}>Flip that coin!</Text>
         </TouchableOpacity>
       </View>

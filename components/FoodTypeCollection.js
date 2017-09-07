@@ -19,7 +19,7 @@ export default class FoodTypeCollection extends Component {
     foodData: PropTypes.array.isRequired,
   }
 
-  randomizeFood() {
+  _randomizeFood = () => {
     let max = this.props.foodData.length;
     let randomSelect = Math.floor(Math.random() * max);
     this.props.selectFood(randomSelect);
@@ -33,7 +33,7 @@ export default class FoodTypeCollection extends Component {
         <View style={tempStyles.foodButton}>
           <TouchableHighlight
             style={styles.button}
-            onPress={() => this.randomizeFood()}
+            onPress={() => this._randomizeFood()}
           >
             <Text style={styles.buttonText}>What Am I Craving?</Text>
           </TouchableHighlight>

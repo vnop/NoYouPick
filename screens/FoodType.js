@@ -25,9 +25,7 @@ export default class FoodType extends Component {
           result = [...result, info];
         })
         .then(data => {
-          this.setState({
-            foodCollection: result
-          });
+          this.setState({ foodCollection: result });
         })
         .catch(err => console.warn('fb fail', err));
     });
@@ -37,25 +35,23 @@ export default class FoodType extends Component {
     title: 'Random Food Type'
   }
 
-  chooseFood = (chosenFood) => {
-    this.setState({
-      chosenFood
-    });
+  _chooseFood = (chosenFood) => {
+    this.setState({ chosenFood });
   }
 
-  getScreenContent() {
+  _getScreenContent = () => {
     const { chosenFood, foodCollection } = this.state;
     if (chosenFood === null) {
       return (
         <FoodTypeCollection
-          selectFood={this.chooseFood}
+          selectFood={this._chooseFood}
           foodData={foodCollection}
         />
       );
     }
     return (
       <FoodTypeResult
-        selectFood={this.chooseFood}
+        selectFood={this._chooseFood}
         selectedFood={chosenFood}
         foodData={foodCollection}
       />
@@ -65,7 +61,7 @@ export default class FoodType extends Component {
   render() {
     return (
       <View style={styles.container}>
-        { this.getScreenContent() }
+        { this._getScreenContent() }
       </View>
     );
   }

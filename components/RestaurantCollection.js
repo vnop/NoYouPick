@@ -18,7 +18,8 @@ export default class RestaurantCollection extends Component {
     selectRestaurant: PropTypes.func.isRequired,
     restaurants: PropTypes.array.isRequired
   }
-  randomizeRestaurant() {
+
+  _randomizeRestaurant = () => {
     let max = this.props.restaurants.length;
     let randomSelect = Math.floor(Math.random() * max);
     this.props.selectRestaurant(randomSelect);
@@ -32,7 +33,7 @@ export default class RestaurantCollection extends Component {
         <View style={tempStyles.foodButton}>
           <TouchableHighlight
             style={styles.button}
-            onPress={() => this.randomizeRestaurant()}
+            onPress={() => this._randomizeRestaurant()}
           >
             <Text style={styles.buttonText}>Pick a Place</Text>
           </TouchableHighlight>

@@ -12,6 +12,7 @@ const RestaurantButton = (props) => {
   } else {
     buttonStyle = styles.button;
   }
+
   return (
     <View>
       <TouchableHighlight
