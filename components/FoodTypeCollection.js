@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   ScrollView,
   Dimensions,
-  StyleSheet,
   Image,
   Text,
   View,
@@ -28,9 +27,9 @@ export default class FoodTypeCollection extends Component {
   render() {
     let imageWidth = width / 2;
     return (
-      <View style={tempStyles.container}>
+      <View style={styles.container}>
 
-        <View style={tempStyles.foodButton}>
+        <View style={{ marginBottom: 1 }}>
           <TouchableHighlight
             style={styles.button}
             onPress={() => this._randomizeFood()}
@@ -39,7 +38,7 @@ export default class FoodTypeCollection extends Component {
           </TouchableHighlight>
         </View>
         <ScrollView>
-          <View style={tempStyles.foodGrid}>
+          <View style={styles.foodGrid}>
             { this.props.foodData.map((item, index) => {
               return (
                 <Image
@@ -47,14 +46,8 @@ export default class FoodTypeCollection extends Component {
                   style={{ width: imageWidth, height: 180 }}
                   key={item.id}
                 >
-                  <View style={{ backgroundColor: 'rgba(0,0,0,0.4)', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text
-                      style={{
-                        color: 'white',
-                        fontSize: 15,
-                        fontWeight: 'bold'
-                      }}
-                    >
+                  <View style={styles.fadeBack}>
+                    <Text style={styles.fadeText}>
                       {item.type}
                     </Text>
                   </View>
@@ -67,17 +60,3 @@ export default class FoodTypeCollection extends Component {
     );
   }
 }
-
-const tempStyles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  foodGrid: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  foodButton: {
-    marginBottom: 1,
-  }
-});

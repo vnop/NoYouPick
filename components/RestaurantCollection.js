@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   ScrollView,
   Dimensions,
-  StyleSheet,
   Image,
   Text,
   View,
@@ -26,11 +25,10 @@ export default class RestaurantCollection extends Component {
   }
 
   render() {
-    let imageWidth = width / 2;
+    const imageWidth = width / 2;
     return (
-      <View style={tempStyles.container}>
-
-        <View style={tempStyles.foodButton}>
+      <View style={styles.container}>
+        <View style={{ marginBottom: 1 }}>
           <TouchableHighlight
             style={styles.button}
             onPress={() => this._randomizeRestaurant()}
@@ -38,9 +36,8 @@ export default class RestaurantCollection extends Component {
             <Text style={styles.buttonText}>Pick a Place</Text>
           </TouchableHighlight>
         </View>
-
         <ScrollView>
-          <View style={tempStyles.foodGrid}>
+          <View style={styles.foodGrid}>
               { this.props.restaurants.map((place, index) => {
                 let imageUri = `${place.venue.featuredPhotos.items[0].prefix}200${place.venue.featuredPhotos.items[0].suffix}`;
                 return (
@@ -49,14 +46,8 @@ export default class RestaurantCollection extends Component {
                     style={{ width: imageWidth, height: 150 }}
                     key={place.venue.featuredPhotos.items[0].id}
                   >
-                  <View style={{ backgroundColor: 'rgba(0,0,0,0.4)', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text
-                      style={{
-                        color: 'white',
-                        fontSize: 15,
-                        fontWeight: 'bold'
-                      }}
-                    >
+                  <View style={styles.fadeBack}>
+                    <Text style={styles.fadeText}>
                       {place.venue.name}
                     </Text>
                   </View>
@@ -65,22 +56,7 @@ export default class RestaurantCollection extends Component {
               }) }
           </View>
         </ScrollView>
-
       </View>
     );
   }
 }
-
-const tempStyles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  foodGrid: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  foodButton: {
-    marginBottom: 1,
-  }
-});

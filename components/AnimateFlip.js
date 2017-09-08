@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import styles from '../styles/styles';
 
 export default class AnimateFlip extends Component {
   componentWillMount() {
@@ -60,15 +61,15 @@ export default class AnimateFlip extends Component {
       ],
     };
     return (
-      <View style={styles.container}>
-        <View style={{padding: 5}}>
-          <Animated.View style={[styles.flipCoin, frontAnimatedStyle]}>
+      <View style={[styles.container, addStyles.container]}>
+        <View style={{padding: 10}}>
+          <Animated.View style={[addStyles.flipCoin, frontAnimatedStyle]}>
             <Image
               source={require('../assets/images/dragonHead.png')}
               style={{ width: 200, height: 200 }}
             />
           </Animated.View>
-          <Animated.View style={[backAnimatedStyle, styles.flipCoin, styles.flipCoinBack]}>
+          <Animated.View style={[backAnimatedStyle, addStyles.flipCoin, addStyles.flipCoinBack]}>
             <Image
               source={require('../assets/images/dragonTail.png')}
               style={{ width: 200, height: 200 }}
@@ -83,9 +84,8 @@ export default class AnimateFlip extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const addStyles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -99,16 +99,5 @@ const styles = StyleSheet.create({
   flipCoinBack: {
     position: 'absolute',
     top: 0,
-  },
-  button: {
-    backgroundColor: 'royalblue',
-    padding: 20,
-    borderRadius: 5,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
   },
 });

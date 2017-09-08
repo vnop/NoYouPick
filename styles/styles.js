@@ -19,33 +19,43 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   foodButton: {
     marginTop: 20,
-    marginBottom: 20
+    marginBottom: 20,
   },
   foodGrid: {
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center'
   },
   foodType: {
     borderWidth: 1,
     margin: 1,
-    padding: 5
+    padding: 5,
   },
   foodContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   foodText: {
     color: 'white',
     fontSize: 15,
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
+  fadeBack: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  fadeText: {
+    color: 'white',
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
 });
 
 export default styles;

@@ -33,7 +33,7 @@ export default class FoodTypeResult extends Component {
         <View style={{marginBottom: 5}}>
           <Text style={{marginLeft: 5}}>
             I feel like having...
-            <Text style={tempStyles.foodText}>
+            <Text style={addStyles.foodText}>
               {eat.type}
             </Text>
           </Text>
@@ -45,7 +45,7 @@ export default class FoodTypeResult extends Component {
 
         <View>
           <TouchableHighlight
-            style={tempStyles.button}
+            style={[styles.button, addStyles.button]}
             onPress={() => this._randomizeFood()}
           >
             <Text style={styles.buttonText}>Pick Again</Text>
@@ -56,28 +56,10 @@ export default class FoodTypeResult extends Component {
   }
 }
 
-const tempStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  innerContainer: {
-    backgroundColor: '#fefefe',
-  },
-  innerContainer2: {
-    flex: 1,
-    paddingLeft: 5,
-  },
-  innerContainer3: {
-    backgroundColor: '#fefefe',
-    paddingLeft: 5,
-  },
+const addStyles = StyleSheet.create({
   button: {
-    backgroundColor: 'royalblue',
-    padding: 20,
-    borderRadius: 5,
     margin: 0,
     marginBottom: 1,
-    alignItems: 'center',
   },
   foodText: {
     color: 'black',

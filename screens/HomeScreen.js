@@ -55,14 +55,14 @@ export default class HomeScreen extends Component {
         />;
     }
     return (
-      <View style={tempStyles.container}>
-        <View style={tempStyles.button1}>
+      <View style={[styles.container, addStyles.container]}>
+        <View style={addStyles.buttonSpacing}>
           <FlipButton goToScreen={navigate} />
         </View>
-        <View style={tempStyles.button2}>
+        <View style={addStyles.middleButton}>
           <FoodButton goToScreen={navigate} />
         </View>
-        <View style={tempStyles.button3}>
+        <View style={addStyles.buttonSpacing}>
           {restaurantSection}
         </View>
       </View>
@@ -70,21 +70,15 @@ export default class HomeScreen extends Component {
   }
 }
 
-const tempStyles = StyleSheet.create({
+const addStyles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fefefe',
     justifyContent: 'center',
   },
-  button1: {
+  buttonSpacing: {
     marginLeft: 25,
     marginRight: 25,
   },
-  button2: {
+  middleButton: {
     margin: 25,
   },
-  button3: {
-    marginLeft: 25,
-    marginRight: 25,
-  }
 });
